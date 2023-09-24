@@ -52,6 +52,10 @@ int main()
 	// Create a new Enemy
 	Enemy *e = new Enemy();
 
+	std::cout << "Enter your co-ordinates" << std::endl;
+	std::cin >> Position.x;
+	std::cin >> Position.y;
+
 	// Set Enemy Position / Target
 	e->coordinates.x = 2;
 	e->coordinates.y = 2;
@@ -70,6 +74,7 @@ int main()
 	m->target = *e;
 
 	// Set Initial Position
+	std::cout << "Where is missile firing?" << std::endl;
 	m->coordinates.x = 0;
 	m->coordinates.y = 0;
 
