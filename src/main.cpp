@@ -47,14 +47,32 @@ struct Missile
 	}
 };
 
+WarHead selectWarhead();
+
+WarHead selectWarhead(){
+	std::cout << "Select a warhead" << "\n";
+	cout << "E = Explosive" << "\n";
+	cout << "N = Nuclear" << "\n";
+	char input = cin.get();
+	WarHead selected = WarHead::EXPLOSIVE;
+	if(input == 'n')
+	{
+		selected = WarHead::NUCLEAR;
+		cout << "You have selected nuclear" << endl;
+	}
+	else{
+		cout << "You have selected explosive" << endl;
+	}
+	return selected;
+}
+
 int main()
 {
 	// Create a new Enemy
 	Enemy* e = new Enemy();
 
 	std::cout << "Enter your co-ordinates" << std::endl;
-	std::cin >> Po.x;
-	std::cin >> Pos.y;
+	
 
 	// Set Enemy Position / Target
 	e->coordinates.x = 2;
@@ -68,15 +86,17 @@ int main()
 	Missile* m = new Missile();
 
 	// Set Missile Payload
-	m->payload = WarHead::EXPLOSIVE;
+	m->payload = selectWarhead();
 
 	// Set Missile Target by dereferencing Enemy pointer
 	m->target = *e;
 
 	// Set Initial Position
 	std::cout << "Where is missile firing?" << std::endl;
-	m->coordinates.x = 0;
-	m->coordinates.y = 0;
+	cout << "X: ";
+	cin >> m->coordinates.x;
+	cout << "Y: ";
+	cin >> m->coordinates.y;
 
 	// Print Position
 	cout << "Print Missile Position" << endl;
