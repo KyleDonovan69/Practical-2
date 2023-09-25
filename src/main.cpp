@@ -7,7 +7,7 @@ typedef struct Position
 	int x;
 	int y;
 	void
-	print()
+		print()
 	{
 		cout << "[ x: " << x << " ]" << "[ y: " << y << " ]" << endl;
 	}
@@ -50,11 +50,11 @@ struct Missile
 int main()
 {
 	// Create a new Enemy
-	Enemy *e = new Enemy();
+	Enemy* e = new Enemy();
 
 	std::cout << "Enter your co-ordinates" << std::endl;
-	std::cin >> Position.x;
-	std::cin >> Position.y;
+	std::cin >> Po.x;
+	std::cin >> Pos.y;
 
 	// Set Enemy Position / Target
 	e->coordinates.x = 2;
@@ -65,7 +65,7 @@ int main()
 	e->coordinates.print();
 
 	// Create a new Missile
-	Missile *m = new Missile();
+	Missile* m = new Missile();
 
 	// Set Missile Payload
 	m->payload = WarHead::EXPLOSIVE;
