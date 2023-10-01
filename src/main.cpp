@@ -1,4 +1,6 @@
 #include <iostream>
+#include <ctime>
+#include <cstdlib>
 
 using namespace std;
 
@@ -19,6 +21,11 @@ enum WarHead
 	NUCLEAR
 };
 
+struct Player
+{
+	Coordinates coordinates;
+};
+
 typedef struct Enemy
 {
 	Coordinates coordinates;
@@ -31,7 +38,6 @@ struct Missile
 	Target target;
 
 	bool armed;
-
 	void arm()
 	{
 		if (armed)
@@ -42,8 +48,8 @@ struct Missile
 
 	void update()
 	{
-		coordinates.x += 1;
-		coordinates.y += 2;
+		coordinates.x += 0;
+		coordinates.y += 0;
 	}
 };
 
@@ -70,9 +76,25 @@ int main()
 {
 	// Create a new Enemy
 	Enemy* e = new Enemy();
+	Player* p= new Player();
+	cout << "THIS IS A 3x3 GRID" << endl;
 
 	std::cout << "Enter your co-ordinates" << std::endl;
-	
+	cout << "X: ";
+	cin >> p->coordinates.x;
+	while (p->coordinates.x > 3)
+	{
+		cout << "Outside grid please ReEnter X:";
+		cin >> p->coordinates.x;
+	}
+	cout << "Y: ";
+	cin >> p->coordinates.y;
+	while (p->coordinates.y > 3)
+	{
+		cout << "Outside grid please ReEnter Y:";
+		cin >> p->coordinates.y;
+	}
+	p->coordinates.print();
 
 	// Set Enemy Position / Target
 	e->coordinates.x = 2;
@@ -91,28 +113,62 @@ int main()
 	// Set Missile Target by dereferencing Enemy pointer
 	m->target = *e;
 
+	srand(time(0));
+	int code = rand() % 9999 + 1;
+	int inputNo = 0;
+	cout << "The arming code is: " << code << endl;
+	cout << "Input code to arm missile" << endl;
+	cin >> inputNo;
+
+	if(inputNo == code)
+	{
+		m->armed = true;
+	}
+	while(inputNo != code){
+		cout << "You can read the code.... right?" << endl;
+		cin >> inputNo;
+	}
+
 	// Set Initial Position
 	std::cout << "Where is missile firing?" << std::endl;
 	cout << "X: ";
 	cin >> m->coordinates.x;
+	while(m->coordinates.x > 3)
+	{
+		cin >> m->coordinates.x;
+	}
 	cout << "Y: ";
 	cin >> m->coordinates.y;
 
 	// Print Position
-	cout << "Print Missile Position" << endl;
-	m->coordinates.print();
+	//cout << "Print Missile Position" << endl;
+	//m->coordinates.print();
 
 	// Update Position
 	m->update();
 
+	if (m->coordinates.x == e->coordinates.x && m->coordinates.y == e->coordinates.y)
+	{
+		if(m->payload == NUCLEAR)
+		{
+			cout << "You wiped his coordinates off the world map....." << endl;
+		}
+		else{
+		cout << "You absolutely nailed him!" << endl;
+		}
+	}
+	else{
+		cout << "How could you miss? He was standing still!" << endl;
+	}
+
 	// Print Missile Position
-	cout << "Print Missile Position after an Update" << endl;
-	m->coordinates.print();
+	//cout << "Print Missile Position after an Update" << endl;
+	//m->coordinates.print();
 
 
 	// Print Missile target
-	cout << "Print Missile Target Position" << endl;
-	m->target.coordinates.print();
+	//cout << "Print Missile Target Position" << endl;
+	//m->target.coordinates.print();
 
 	cin.get();
 }
